@@ -12,8 +12,7 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 // const productsRouter = require('./routes/products');
 // const Product = require('./models/myproduct');
-const productRoutes = require('./routes/products');
-
+const productsRouter = require('./routes/products');
 const Router=require("./routes/products.js")
 // Connect to MongoDB
  mongoose.connect("mongodb+srv://itsus5220:4linzRYHdtFoiOrg@uni-ecom.6uow5ui.mongodb.net/?retryWrites=true&w=majority&appName=uni-ecom", {
