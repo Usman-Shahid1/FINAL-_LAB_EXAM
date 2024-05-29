@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Product Details</title>
+</head>
+<body>
+    <div class="container">
+        <div id="product-details">
+            <p>Loading product details...</p>
+        </div>
+    </div>
+
+    <script>
+        async function fetchProductDetails() {
+            const productId = window.location.pathname.split('/').pop();
+            try {
+                const response = await fetch(`/api/products/${productId}`);
+                const product = await response.json();
+
+                const container = document.getElementById('product-details');
+                container.innerHTML = `
+                    <h1>${product.name}</h1>
+                    <p>Price: $${product.price}</p>
+                    <p>${product.description}</p>
+                    <p>Category: ${product.category}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching product details:', error);
+                document.getElementById('product-details').innerHTML = '<p>Failed to load product details.</p>';
+            }
+        }
+
+        window.onload = fetchProductDetails;
+    </script>
+</body>
+</html>
