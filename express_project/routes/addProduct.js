@@ -34,32 +34,57 @@ router.post('/api/addProduct', upload.single('image'), async (req, res) => {
 module.exports = router; */
 // const multer = require('multer');
 
+// const express = require('express');
+// const router = express.Router();
+// const Product = require('../models/myproduct');
+
+
+
+// // Handle form submission
+// router.post('/api/addProduct', async (req, res) => {
+//   const { name, description, price } = req.body;
+
+//   const newProduct = new Product({ name, description, price });
+
+//   try {
+//     await newProduct.save();
+//     res.status(201).send('Product added successfully');
+//   } catch (error) {
+//     res.status(500).send('Error');
+//   }
+// });
+
+// module.exports = router;
+
+
+
+
+
+
+
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/myproduct');
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/images/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + '-' + file.originalname);
-//     },
-// });
-
-// const upload = multer({ storage: storage });
-
-// Handle form submission
 router.post('/api/addProduct', async (req, res) => {
-  const { name, description, price } = req.body;
+  const { name, description, price, category, isFeatured } = req.body;
 
-  const newProduct = new Product({ name, description, price });
+  // Create a new product instance with the provided data
+  const newProduct = new Product({
+    name,
+    description,
+    price,
+    category,
+    isFeatured: isFeatured ? true : false // Convert isFeatured to a boolean
+  });
 
   try {
+    // Save the new product to the database
     await newProduct.save();
     res.status(201).send('Product added successfully');
   } catch (error) {
-    res.status(500).send('Error');
+    console.error(error);
+    res.status(500).send('Error adding product');
   }
 });
 

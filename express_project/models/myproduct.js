@@ -12,11 +12,17 @@ const productSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true,
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  isFeatured: {
+    type: Boolean,
+    default: false
   }
-  // image: {
-  //   type: String,
-  //   required: true,
-  // }
+
+  
 });
 
 const Product = mongoose.model('myproducts',productSchema);
